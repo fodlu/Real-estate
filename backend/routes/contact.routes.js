@@ -1,6 +1,6 @@
 import express from 'express'
-import { createContact, getAllContacts } from '../../controllers/contact.controller.js';
-import { authorize, protect } from '../../middlewares/auth.middleware.js';
+import { createContact, getAllContacts } from '../controllers/contact.controller.js';
+import { authorize, protect } from '../middlewares/auth.middleware.js';
 
 const contactRouter = express.Router()
 

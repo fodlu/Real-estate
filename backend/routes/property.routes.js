@@ -9,9 +9,9 @@ import {
 	getSellerDashboard,
 	updateProperty,
 	updatePropertyStatus,
-} from "../../controllers/property.controller.js";
-import { authorize, protect } from "../../middlewares/auth.middleware.js";
-import upload from "../../middlewares/upload.middleware.js";
+} from "../controllers/property.controller.js";
+import { authorize, protect } from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
 
 const propertyRouter = express.Router();
 
