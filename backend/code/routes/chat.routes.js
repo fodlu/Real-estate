@@ -1,6 +1,6 @@
 import express from "express";
-import ChatModel from "../models/chat.model.js";
-import { protect } from "../middlewares/auth.middleware.js";
+import ChatModel from "../../models/chat.model.js";
+import { protect } from "../../middlewares/auth.middleware.js";
 
 ChatRouter.use(protect);
 
