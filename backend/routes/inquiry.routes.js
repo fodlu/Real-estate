@@ -1,6 +1,6 @@
 import express from 'express'
-import { authorize, protect } from '../middlewares/auth.middleware.js';
-import { getSellerInquiries, markAsRead, sendInquiry } from '../controllers/inquiry.controller.js';
+import { authorize, protect } from '../../middlewares/auth.middleware.js';
+import { getSellerInquiries, markAsRead, sendInquiry } from '../../controllers/inquiry.controller.js';
 
 const inquiryRouter = express.Router();
 

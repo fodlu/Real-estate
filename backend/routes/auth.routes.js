@@ -6,8 +6,8 @@ import {
 	register,
 	resetPassword,
 	verifyEmail,
-} from "../controllers/auth.controller.js";
-import { protect } from "../middlewares/auth.middleware.js";
+} from "../../controllers/auth.controller.js";
+import { protect } from "../../middlewares/auth.middleware.js";
 
 const authRouter = express.Router();
 
