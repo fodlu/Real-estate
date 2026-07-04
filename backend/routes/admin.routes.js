@@ -1,5 +1,5 @@
 import express from "express";
-import { authorize, protect } from "../../middlewares/auth.middleware.js";
+import { authorize, protect } from "../middlewares/auth.middleware.js";
 import {
 	approveSeller,
 	blockUser,
@@ -10,7 +10,7 @@ import {
 	getAllUsers,
 	getDashboardStats,
 	getPendingSellers,
-} from "../../controllers/admin.controller.js";
+} from "../controllers/admin.controller.js";
 
 const adminRouter = express.Router;
 
