@@ -12,7 +12,7 @@ import {
 	getPendingSellers,
 } from "../controllers/admin.controller.js";
 
-const adminRouter = express.Router;
+const adminRouter = express.Router();
 
 adminRouter.use(protect, authorize("admin"));
 
