@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { registerStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/common/Navbar";
 import { useNavigate } from "react-router-dom";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -137,7 +138,8 @@ const Register = () => {
 									<input
 										type='radio'
 										name='role'
-                                        value="buyer"
+										id='buyer'
+										value='buyer'
 										checked={formData.role === "buyer"}
 										onChange={handleChange}
 										className={s.hiddenRadio}
@@ -145,15 +147,16 @@ const Register = () => {
 									Buyer
 								</label>
 
-                                <label
+								<label
 									className={`${s.roleLabelBase} ${
-										formData.role === "buyer" ?
+										formData.role === "seller" ?
 											s.roleLabelActive
 										:	s.roleLabelInactive
 									}`}>
 									<input
 										type='radio'
 										name='role'
+										id='seller'
 										value='seller'
 										checked={formData.role === "seller"}
 										onChange={handleChange}
@@ -164,8 +167,20 @@ const Register = () => {
 							</div>
 						</div>
 
-                        <button type="submit" className={s.submitButton} disabled={isLoading}>{isLoading ? "Creating Account..." : "Create Account"}</button>
+						<button
+							type='submit'
+							className={s.submitButton}
+							disabled={isLoading}>
+							{isLoading ? "Creating Account..." : "Create Account"}
+						</button>
 					</form>
+
+					<p className={s.footerText}>
+						Already have an account{" "}
+						<Link to='/login' className={s.loginLink}>
+							Sign In Here
+						</Link>
+					</p>
 				</div>
 			</div>
 		</div>
