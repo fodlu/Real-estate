@@ -16,7 +16,7 @@ import {
 	FaLinkedinIn,
 	FaTwitter,
 } from "react-icons/fa";
-import logo from '../../assets/hexagonlogo1.png'
+import logo from "../../assets/hexagonlogo1.png";
 import { landingPageStyles as s } from "../../assets/dummyStyles";
 import Navbar from "../../components/common/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -43,6 +43,7 @@ const LandingPage = () => {
 	});
 	const [wishlistedIds, setWishlistedIds] = useState([]);
 
+	// to fetch wishlist
 	const fetchWishlist = async () => {
 		try {
 			const res = await axios.get(`${API_URL}/api/wishlist`, {
@@ -437,7 +438,6 @@ const LandingPage = () => {
 			</section>
 
 			{/* footer */}
-
 			<footer className={s.footer}>
 				<div className={s.container}>
 					<div className={s.footerMainGrid}>
@@ -512,15 +512,18 @@ const LandingPage = () => {
 
 						{/* for column 4 */}
 						<div>
-							<h4 className={s.footerHeading}>
-								Newsletters
-							</h4>
+							<h4 className={s.footerHeading}>Newsletters</h4>
 							<p className={s.newsletterDesc}>
-								Subscribe to get the letter listings and the market insight directly in your inbox.
+								Subscribe to get the letter listings and the market insight
+								directly in your inbox.
 							</p>
 
 							<div className={s.newsletterInputWrapper}>
-								<input type="email" placeholder="Enter your email" className={s.newsletterInput} />
+								<input
+									type='email'
+									placeholder='Enter your email'
+									className={s.newsletterInput}
+								/>
 								<button className={s.newsletterButton}>Join</button>
 							</div>
 						</div>
@@ -529,24 +532,32 @@ const LandingPage = () => {
 					{/* bottom bar */}
 					<div className={s.bottomBar}>
 						<div className={s.bottomBarFlex}>
-							<p>&copy; {new Date().getFullYear()} RealEstate. All rights reserved.</p>
+							<p>
+								&copy; {new Date().getFullYear()} RealEstate. All rights
+								reserved.
+							</p>
 							<div className={s.footerLegalLinks}>
-								<a href="#" className={s.footerLink}>
+								<a href='#' className={s.footerLink}>
 									Privacy Policy
 								</a>
-								<a href="#" className={s.footerLink}>
+								<a href='#' className={s.footerLink}>
 									Terms of Services
 								</a>
-								<a href="#" className={s.footerLink}>
+								<a href='#' className={s.footerLink}>
 									Cookies Settings
 								</a>
 							</div>
 						</div>
 
 						<div className={s.designCredit}>
-							<img src={logo} alt="logo" className={s.designLogo} />
-							<span className="text-text-muted">Designed by </span>
-							<a href="https://www.github.com/fodlu" target="_blank" className={s.designLink}>Fadilulahi Opeyemi Musediq</a>
+							<img src={logo} alt='logo' className={s.designLogo} />
+							<span className='text-text-muted'>Designed by </span>
+							<a
+								href='https://www.github.com/fodlu'
+								target='_blank'
+								className={s.designLink}>
+								Fadilulahi Opeyemi Musediq
+							</a>
 						</div>
 					</div>
 				</div>

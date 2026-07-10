@@ -38,7 +38,7 @@ const PropertyCard = ({
 		}
 	};
 
-	const formattedPrice = new Intl.NumberFormat("en-IN", {
+	const formattedPrice = new Intl.NumberFormat("en-NGA", {
 		style: "currency",
 		currency: "NGA",
 		maximumFractionDigits: 0,
@@ -158,25 +158,26 @@ const PropertyCard = ({
 						}
 					</div>
 
-                    {/* view detail action */}
-                    {!renderActions && (
-                        <div className={s.viewDetailsButton}>
-                            <button className={s.viewDetailsBtn}>
-                                View Details
-                            </button>
-                        </div>
-                    )}
+					{/* view detail action */}
+					{!renderActions && (
+						<div className={s.viewDetailsButton}>
+							<button className={s.viewDetailsBtn}>View Details</button>
+						</div>
+					)}
 				</div>
 			</Link>
 
-            {renderActions && (
-                <div className={s.actionsContainer} onClick={e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }} onMouseDown={(e) => e.stopPropagation()}>
-                    {renderActions(property)}
-                </div>
-            )}
+			{renderActions && (
+				<div
+					className={s.actionsContainer}
+					onClick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					onMouseDown={(e) => e.stopPropagation()}>
+					{renderActions(property)}
+				</div>
+			)}
 		</div>
 	);
 };

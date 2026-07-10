@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import API_URL from "../../config";
 import { useNavigate } from "react-router-dom";
@@ -95,6 +95,8 @@ export const AuthProvider = ({ children }) => {
 				setUser(JSON.parse(storedUser));
 			}
 		}
+
+		setLoading(false)
 
 		const interceptor = axios.interceptors.response.use(
 			(response) => response,

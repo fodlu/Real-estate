@@ -147,7 +147,7 @@ export const getPendingSellers = async (req, res) => {
 
 		res.json({
 			success: true,
-			count: pendingSellers,
+			count: pendingSellers.length,
 			pendingSellers,
 		});
 	} catch (error) {
