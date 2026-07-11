@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { sellerLayoutStyles as s } from '../assets/dummyStyles'
 import SellerSidebar from './SellerSidebar';
 import { useAuth } from '../context/AuthContext';
@@ -23,11 +23,13 @@ const SellerLayout = () => {
             <div className={s.contentWrapper}>
                 <DashboardNavbar onMenuClick={() => setIsSidebarOpen(true)} />
                     <main className={s.main}>
-                        {user?.isApproved || isPublicDashboardRoute ? (
+                        {/* {user?.isApproved || isPublicDashboardRoute ? (
                             <Outlet />
                         ) : (
                             <PendingApproval />
-                        )}
+                        )} */}
+
+                        <Outlet />
                     </main>
             </div>
     </div>

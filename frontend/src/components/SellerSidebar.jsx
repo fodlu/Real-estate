@@ -67,4 +67,4 @@ const SellerSidebar = ({ isOpen, onClose }) => {
 	);
 };
 
-export  default SellerSidebar;
+export default SellerSidebar;

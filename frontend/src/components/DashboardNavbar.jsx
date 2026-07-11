@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "./common/Logo";
 import { dashboardNavbarStyles as s } from "../assets/dummyStyles";
 import { HiMenuAlt2 } from "react-icons/hi";
