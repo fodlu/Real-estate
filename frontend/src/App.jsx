@@ -18,6 +18,8 @@ import AdminContacts from "./pages/admin/AdminContacts";
 import SellerLayout from "./components/SellerLayout";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 import AddProperty from "./pages/seller/AddProperty";
+import MyProperties from "./pages/seller/MyProperties";
+import EditProperty from "./pages/seller/EditProperty";
 
 const App = () => {
 	return (
@@ -36,17 +38,19 @@ const App = () => {
 				<Route path='/profile' element={<Profile />} />
 
 				<Route element={<SellerLayout />}>
-				<Route path="/add-property" element={<AddProperty />} />
-					<Route path="/dashboard" element={<SellerDashboard />} />
+					<Route path='/add-property' element={<AddProperty />} />
+					<Route path='/dashboard' element={<SellerDashboard />} />
+					<Route path='/my-properties' element={<MyProperties />} />
+					<Route path='/edit-property/:id' element={<EditProperty />} />
 				</Route>
 
 				<Route element={<AdminLayout />}>
-					<Route path="/admin-dashboard" element={<AdminDashboard />} />
-					<Route path="/admin/users" element={<AdminUsers />} />
-					<Route path="/admin/seller-requests" element={<SellerRequests />} />
-					<Route path="/admin/properties" element={<AdminProperty />} />
-					<Route path="/admin/inquiries" element={<AdminInquiries />} />
-					<Route path="/admin/contacts" element={<AdminContacts />} />
+					<Route path='/admin-dashboard' element={<AdminDashboard />} />
+					<Route path='/admin/users' element={<AdminUsers />} />
+					<Route path='/admin/seller-requests' element={<SellerRequests />} />
+					<Route path='/admin/properties' element={<AdminProperty />} />
+					<Route path='/admin/inquiries' element={<AdminInquiries />} />
+					<Route path='/admin/contacts' element={<AdminContacts />} />
 				</Route>
 			</Routes>
 		</div>

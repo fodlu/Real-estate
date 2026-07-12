@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_URL from "../../../config";
+import { HiUpload } from "react-icons/hi";
 
 const AddProperty = () => {
 	const { token } = useAuth();
@@ -138,12 +139,246 @@ const AddProperty = () => {
 										required
 									/>
 								</div>
-                                <div>
-                                    <label className={s.label}>Detailed Description</label>
-                                    <textarea name="description" className={`${s.textarea} ${s.input}`} value={formData.description} onChange={handleInputChange} placeholder="Describe the property highlights..."></textarea>
-                                </div>
+								<div>
+									<label className={s.label}>Detailed Description</label>
+									<textarea
+										name='description'
+										className={`${s.textarea} ${s.input}`}
+										value={formData.description}
+										onChange={handleInputChange}
+										placeholder='Describe the property highlights...'></textarea>
+								</div>
 							</div>
 						</div>
+
+						<div className={s.twoColumnGrid}>
+							<div
+								className={`${s.sectionHeader} ${s.sectionHeaderSmallMargin}`}>
+								<div className={s.sectionBar}></div>
+								<h3 className={s.sectionTitle}>Property Details</h3>
+							</div>
+							<div className={s.contentGroupMedium}>
+								<div>
+									<label className={s.labelSmallMargin}>Property type</label>
+									<select
+										name='propertyType'
+										value={formData.propertyType}
+										onChange={handleInputChange}
+										className={`${s.input} ${s.select}`}>
+										<option value='flat'>Flat/Apartment</option>
+										<option value='villa'>Independent House/Villa</option>
+										<option value='penthouse'>Penthouse</option>
+										<option value='commercial'>Commercial</option>
+									</select>
+								</div>
+
+								<div className={s.gridThreeCol}>
+									<div>
+										<label className={s.labelSmallMargin}>BHK</label>
+										<input
+											type='number'
+											name='bhk'
+											value={formData.bhk}
+											onChange={handleInputChange}
+											placeholder='e.g. 3'
+											className={s.input}
+										/>
+									</div>
+
+									<div>
+										<label className={s.labelSmallMargin}>Bathrooms</label>
+										<input
+											type='number'
+											name='bathrooms'
+											value={formData.bathrooms || ""}
+											onChange={handleInputChange}
+											placeholder='e.g. 2'
+											className={s.input}
+										/>
+									</div>
+
+									<div>
+										<label className={s.labelSmallMargin}>Area (Sq. Ft)</label>
+										<input
+											type='number'
+											name='areaSize'
+											value={formData.areaSize || ""}
+											onChange={handleInputChange}
+											placeholder='e.g. 1500'
+											className={s.input}
+											required
+										/>
+									</div>
+								</div>
+
+								<div className={s.gridTwoCol}>
+									<div>
+										<label className={s.labelSmallMargin}>Furnishing</label>
+										<select
+											name='furnishing'
+											value={formData.furnishing}
+											onChange={handleInputChange}
+											className={`${s.input} ${s.select}`}>
+											<option value='unfurnished'>Unfurnished</option>
+											<option value='semi-furnished'>Semi-Furnished</option>
+											<option value='furnished'>Fully Furnished</option>
+										</select>
+									</div>
+
+									<div>
+										<label className={s.labelSmallMargin}>Listing Status</label>
+										<select
+											name='status'
+											value={formData.status}
+											onChange={handleInputChange}
+											className={`${s.input} ${s.select}`}>
+											<option value='sale'>For Sale</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<div
+									className={`${s.sectionHeader} ${s.sectionHeaderSmallMargin}`}>
+									<div className={s.sectionBar} />
+									<h3 className={s.sectionTitle}>Pricing and Location</h3>
+								</div>
+								<div className={s.contentGroupSmall}>
+									<div>
+										<label className={s.labelSmallMargin}>Price (#)</label>
+										<input
+											type='number'
+											name='price'
+											value={formData.price}
+											onChange={handleInputChange}
+											className={s.input}
+											placeholder='e.g. #5000000'
+											required
+										/>
+									</div>
+									<div className={s.gridTwoCol}>
+										<div>
+											<label className={s.labelSmallMargin}>City</label>
+											<input
+												type='text'
+												name='city'
+												value={formData.city}
+												onChange={handleInputChange}
+												className={s.input}
+												placeholder='e.g. Ajeromi'
+												required
+											/>
+										</div>
+
+										<div>
+											<label className={s.labelSmallMargin}>Pincode</label>
+											<input
+												type='text'
+												name='pincode'
+												value={formData.pincode}
+												onChange={handleInputChange}
+												className={s.input}
+												placeholder='e.g. 23410'
+												required
+											/>
+										</div>
+
+										<div>
+											<label className={s.labelSmallMargin}>
+												Specific Area
+											</label>
+											<input
+												type='text'
+												name='area'
+												value={formData.area}
+												onChange={handleInputChange}
+												className={s.input}
+												placeholder='e.g. Apapa'
+												required
+											/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className={s.section}>
+							<div
+								className={`${s.sectionHeader} ${s.sectionHeaderSmallMargin}`}>
+								<div className={s.sectionBar} />
+								<h3 className={s.sectionTitle}>Amenitites</h3>
+							</div>
+
+							<div className={s.amenitiesGrid}>
+								{commonAmenities.map((amenity) => (
+									<label
+										key={amenity}
+										className={`${s.amenityLabelBase} ${formData.amenities.includes(amenity) ? s.amenityLabelActive : s.amenityLabelInactive}`}>
+										<input
+											type='checkbox'
+											checked={formData.amenities.includes(amenity)}
+											onChange={() => handleAmenityChange(amenity)}
+											className={s.amenityCheckbox}
+										/>
+										<span
+											className={`${s.amenityTextBase} ${formData.amenities.includes(amenity) ? s.amenityTextActive : s.amenityTextInactive}`}>
+											{amenity}
+										</span>
+									</label>
+								))}
+							</div>
+						</div>
+
+                        <div className={s.section}>
+                            <div className={`${s.sectionHeader} ${s.sectionHeaderSmallMargin}`}>
+                                <div className={s.sectionBar} />
+                                <h3 className={s.sectionTitle}>Property Images</h3>
+                            </div>
+
+                            <div className={s.uploadArea}>
+                                <input type="file" multiple onChange={handleImageChange} className="absolute inset-0 capacity-0 cursor-pointer" accept="image/*" />
+                                <div className={s.uploadIconWrapper}>
+                                    <HiUpload size={40} color="#64748b" />
+                                </div>
+                                <h4 className={s.uploadTitle}>
+                                    Click to upload or drag and drop
+                                </h4>
+                                <p className={s.uploadSubtext}>
+                                    Upload up to 10 quality images (PNH, JPG)
+                                </p>
+                            </div>
+
+                            {imagePreviews.length > 0 && (
+                                <div className={s.previewsGrid}>
+                                    {imagePreviews.map((src, i) => (
+                                        <div key={i} className={s.previewItem}>
+                                            <img src={src} alt="preview" className="w-full h-full object-cover" />
+                                            <button type="button" onClick={() => removeImage(i)} className={s.removeButton} style={{
+                                                transform: "rotate(45deg)"
+                                            }}>
+                                                <HiUpload size={12} />
+                                            </button>
+                                        </div>
+                                    ))}
+
+                                    {images.length < 10 && (
+                                        <div className={s.addMoreBox}>
+                                            <input type="file" multiple onChange={handleImageChange} className="animate inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                                            <HiUpload size={20} color="#64748b" />
+                                            <span className={s.addMoreText}>Add More</span>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={s.footerButtons}>
+                            <button type="button" onClick={() => navigate('/dashboard')} className={s.cancelButton}>Cancel</button>
+                            <button type="submit" className={s.submitButton} disabled={loading}>
+                                {loading ? "Uploading..." : "Upload Listing"}
+                            </button>
+                        </div>
 					</form>
 				</div>
 			</div>
