@@ -66,7 +66,7 @@ const ForgotPassword = () => {
 							type='submit'
 							className={s.submitButton}
 							disabled={isLoading}>
-							{isLoading ? "Sending Links..." : "Send Reset Link"}
+							{isLoading ? "Sending Link..." : "Send Reset Link"}
 						</button>
 					</form>
 

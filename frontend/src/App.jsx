@@ -92,10 +92,6 @@ const App = () => {
 			<ScrollToTopButton />
 
 			<Routes>
-				<Route element={<SellerLayout />}>
-					<Route path='/wishlist' element={<Wishlist />} />
-				</Route>
-
 				<Route element={<PublicRoute />}>
 					<Route path='/register' element={<Register />} />
 					<Route path='/verify-email' element={<VerifyEmail />} />

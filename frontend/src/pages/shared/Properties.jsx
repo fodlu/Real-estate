@@ -271,7 +271,7 @@ const Properties = () => {
 									type='range'
 									min='100000'
 									max='100000000'
-									step='500000'
+									step='50000'
 									value={filters.maxPrice}
 									onChange={handlePriceChange}
 									className={s.priceSlider}

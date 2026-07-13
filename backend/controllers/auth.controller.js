@@ -43,7 +43,7 @@ export const register = async (req, res) => {
 
 		res.status(201).json({
 			message:
-				"User registration done. Please check your email for the verificatio code",
+				"User registration done. Please check your email for the verification code",
 			user: { email: user.email, name: user.name, role: user.role },
 		});
 	} catch (error) {
