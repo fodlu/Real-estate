@@ -29,6 +29,8 @@ import { FaChevronUp } from "react-icons/fa";
 import { useAuth } from "./context/AuthContext";
 import MyInquiries from "./pages/buyer/MyInquiries";
 import ChatMessages from "./pages/shared/ChatMessages";
+import Contact from "./pages/shared/Contact";
+import Wishlist from "./pages/buyer/Wishlist";
 
 // scroll to top whenever the page is reloaded or the route is changed
 const ScrollToTopOnRouteChange = () => {
@@ -91,7 +93,7 @@ const App = () => {
 
 			<Routes>
 				<Route element={<SellerLayout />}>
-					<Route path='/chat-messages' element={<ChatMessages />} />
+					<Route path='/wishlist' element={<Wishlist />} />
 				</Route>
 
 				<Route element={<PublicRoute />}>
@@ -114,6 +116,8 @@ const App = () => {
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/inquiries' element={<MyInquiries />} />
 						<Route path='/chat-messages' element={<ChatMessages />} />
+						<Route path='/contact' element={<Contact />} />
+						<Route path='/wishlist' element={<Wishlist />} />
 					</Route>
 				</Route>
 
