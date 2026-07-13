@@ -1,4 +1,4 @@
-import UserModel from "../models/user.model";
+import UserModel from "../models/user.model.js";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 
 // get profile

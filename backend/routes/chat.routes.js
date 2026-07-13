@@ -96,7 +96,7 @@ ChatRouter.get("/user", async (req, res) => {
 	try {
 		const userId = req.user._id;
 		const chat = await ChatModel.find({
-			$or: [{ buyer: userId }, { seller: sellerId }],
+			$or: [{ buyer: userId }, { seller: userId }],
 		})
 			.populate("buyer", "name email profilePic")
 			.populate("seller", "name email profilePic")

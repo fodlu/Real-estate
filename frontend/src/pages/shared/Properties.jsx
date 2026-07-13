@@ -287,7 +287,7 @@ const Properties = () => {
 								<label className={s.filterLabel}>Property Type</label>
 								<div className={s.checkboxGroup}>
 									{propertyTypes.map((type) => (
-										<label className={s.checkboxLabel} key={type.namw}>
+										<label className={s.checkboxLabel} key={type.name}>
 											<input
 												type='checkbox'
 												className={s.checkbox}

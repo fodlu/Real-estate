@@ -1,6 +1,6 @@
-import UserModel from "../models/user.model";
-import PropertyModel from "../models/property.model";
-import InquiryModel from "../models/inquiry.model";
+import UserModel from "../models/user.model.js";
+import PropertyModel from "../models/property.model.js";
+import InquiryModel from "../models/inquiry.model.js";
 import { genSalt } from "bcrypt";
 
 // view all users

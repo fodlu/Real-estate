@@ -1,18 +1,16 @@
-import mongoose from 'mongoose';
+// config/DB.js
+import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
-        // Double-check that your environment variables are loading
-        if (!process.env.MONGODB_URI) {
-            throw new Error("MONGODB_URI is completely missing from your .env file!");
-        }
-
-        // Clean up the promise resolution chain safely
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("🚀 Database connected successfully!");
+        await mongoose.connect(process.env.MONGODB_URI, {
+            // ✅ Extends the node discovery phase to give your hotspot 10s to sync
+            serverSelectionTimeoutMS: 10000,
+            // ✅ Prevents slow data packets from causing an abrupt crash
+            socketTimeoutMS: 45000,
+        });
+        console.log("🚀 [DATABASE] Connected successfully over your hotspot connection!");
     } catch (error) {
-        console.error("❌ MongoDB connection crash:", error.message);
-        // Force the backend server to shut down cleanly if it can't reach its database
-        process.exit(1);
+        console.error("MongoDB Connection Fault Details:", error);
     }
 };
