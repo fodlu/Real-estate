@@ -29,7 +29,7 @@ export const ChatProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (user) {
-			const newSocket = io[API_URL];
+			const newSocket = io(API_URL);
 
 			setSocket(newSocket);
 

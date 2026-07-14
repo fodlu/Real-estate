@@ -61,8 +61,9 @@ const server = http.createServer(app);
 // socket io setup
 const io = new Server(server, {
 	cors: {
-		origin: "allowedOrigins",
+		origin: allowedOrigins,
 		methods: ["GET", "POST"],
+		credentials: true,
 	},
 });
 

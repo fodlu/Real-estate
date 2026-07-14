@@ -43,6 +43,8 @@ const LandingPage = () => {
 	});
 	const [wishlistedIds, setWishlistedIds] = useState([]);
 
+	console.log(error, properties, wishlistedIds);
+
 	// to fetch wishlist
 	const fetchWishlist = async () => {
 		try {
@@ -120,29 +122,31 @@ const LandingPage = () => {
 	const categories = [
 		{
 			name: "Modern Flats",
-			count: propertyCounts.flat || 0,
+			count: propertyCounts?.flat || 0,
 			icon: <HiOfficeBuilding size={32} />,
 			type: "flat",
 		},
 		{
 			name: "Luxury Villas",
-			count: propertyCounts.villa || 0,
+			count: propertyCounts?.villa || 0,
 			icon: <HiHome size={32} />,
 			type: "villa",
 		},
 		{
 			name: "Penthouse",
-			count: propertyCounts.penthouse || 0,
+			count: propertyCounts?.penthouse || 0,
 			icon: <HiOfficeBuilding size={32} />,
 			type: "penthouse",
 		},
 		{
 			name: "Commercial",
-			count: propertyCounts.commercial || 0,
+			count: propertyCounts?.commercial || 0,
 			icon: <HiOfficeBuilding size={32} />,
 			type: "commercial",
 		},
 	];
+
+	console.log(categories)
 
 	const features = [
 		{

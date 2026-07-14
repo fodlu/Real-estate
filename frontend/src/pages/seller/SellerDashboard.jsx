@@ -36,7 +36,7 @@ const SellerDashboard = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const [ statsRes, propsRes, inqRes ] = await Promise.all([
+				const [statsRes, propsRes, inqRes] = await Promise.all([
 					axios.get(`${API_URL}/api/property/seller/dashboard`, {
 						headers: { Authorization: `Bearer ${token}` },
 					}),
@@ -54,11 +54,10 @@ const SellerDashboard = () => {
 					:	propsRes.data.properties || [];
 				setProperties(props);
 				setInquiries(
-					Array.isArray(
-						inqRes.data ? inqRes.data.inquiries.slice(0, 3)
-						: Array.isArray(inqRes.data) ? inqRes.data.slice(0, 3)
-						: [],
-					),
+					inqRes.data && Array.isArray(inqRes.data.inquiries) ?
+						inqRes.data.inquiries.slice(0, 3)
+					: Array.isArray(inqRes.data) ? inqRes.data.slice(0, 3)
+					: [],
 				);
 				setLoading(false);
 			} catch (error) {
@@ -292,38 +291,38 @@ const SellerDashboard = () => {
 					<p className={s.widgetSubtitle}>New messages from potential buyers</p>
 
 					<div className={s.inquiriesList}>
-						{inquiries.map((inq, i) => (
-							<div className={s.inquiryItem} key={inq._id}>
-								<div className={s.inquiryLeft}>
-									<div className={s.inquiryIcon}>
-										<HiOutlineBell size={18} color='var(--primary)' />
-									</div>
-
-									<div>
-										<div className={s.inquiryName}>
-											{inq.buyer?.name || "Potential Buyer"}
-										</div>
-										<div className={s.inquiryProperty}>
-											{inq.property?.title.length > 30 ?
-												inq.property?.title?.slice(0, 30) + "..."
-											:	inq.property?.title}
-										</div>
-									</div>
-								</div>
-
-								<div className={s.inquiryRight}>
-									<div className={s.inquiryDate}>
-										{new Date(inq.createdAt).toLocaleDateString()}
-									</div>
-									<span className={s.inquiryStatus(inq.status)}>
-										{inq.status === "read" ? "Read" : "New"}
-									</span>
-								</div>
-							</div>
-						))}
-						{inquiries.length === 0 && (
+						{inquiries.length === 0 ?
 							<p className={s.noInquiries}>No recent inquiries</p>
-						)}
+						:	inquiries.map((inq) => (
+								<div className={s.inquiryItem} key={inq._id}>
+									<div className={s.inquiryLeft}>
+										<div className={s.inquiryIcon}>
+											<HiOutlineBell size={18} color='var(--primary)' />
+										</div>
+
+										<div>
+											<div className={s.inquiryName}>
+												{inq.buyer?.name || "Potential Buyer"}
+											</div>
+											<div className={s.inquiryProperty}>
+												{inq.property?.title.length > 30 ?
+													inq.property?.title?.slice(0, 30) + "..."
+												:	inq.property?.title}
+											</div>
+										</div>
+									</div>
+
+									<div className={s.inquiryRight}>
+										<div className={s.inquiryDate}>
+											{new Date(inq.createdAt).toLocaleDateString()}
+										</div>
+										<span className={s.inquiryStatus(inq.status)}>
+											{inq.status === "read" ? "Read" : "New"}
+										</span>
+									</div>
+								</div>
+							))
+						}
 					</div>
 				</div>
 

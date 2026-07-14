@@ -103,6 +103,7 @@ const AddProperty = () => {
 			navigate("/dashboard");
 		} catch (error) {
 			setError(error.response?.data?.message || "Failed to  add the property");
+			setLoading(false);
 		}
 	};
 

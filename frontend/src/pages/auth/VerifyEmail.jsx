@@ -13,7 +13,6 @@ const VerifyEmail = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log(location)
 
 	// to get email passed from register page
 	const emailFromState = location.state?.email || "";
