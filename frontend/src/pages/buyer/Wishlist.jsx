@@ -14,22 +14,6 @@ const Wishlist = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const fetchWishlist = async () => {
-		try {
-			const res = await axios.get(`${API_URL}/api/wishlist`, {
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (res.data.success) {
-				setWishlists(res.data);
-				setLoading(false);
-				setError(null);
-			}
-		} catch {
-			setError("Failed to load wishlists.");
-			setLoading(false);
-		}
-	};
-
 	// to remove property from the wishlist
 	const removeFromWishlist = async (propertyId) => {
 		if (!propertyId) {
@@ -54,6 +38,22 @@ const Wishlist = () => {
 	};
 
 	useEffect(() => {
+		const fetchWishlist = async () => {
+			try {
+				const res = await axios.get(`${API_URL}/api/wishlist`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
+				if (res.data.success) {
+					setWishlists(res.data.data);
+					setError(null);
+					setLoading(false);
+					console.log(wishlists)
+				}
+			} catch {
+				setError("Failed to load wishlists.");
+				setLoading(false);
+			}
+		};
 		fetchWishlist();
 	}, []);
 
@@ -92,7 +92,7 @@ const Wishlist = () => {
 					</div>
 				:	<div className={s.gridContainer}>
 						{wishlists
-							.filter((item) => item.property)
+							?.filter((item) => item.property)
 							.map((item) => (
 								<PropertyCard
 									key={item._id}

@@ -110,7 +110,7 @@ const MyProperties = () => {
 							</Link>
 						</div>
 					:	<div className={s.grid}>
-							{properties.mao((p) => (
+							{properties.map((p) => (
 								<PropertyCard
 									property={p}
 									key={p._id}

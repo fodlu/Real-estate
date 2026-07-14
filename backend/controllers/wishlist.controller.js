@@ -41,7 +41,7 @@ export const getWishList = async (req, res) => {
             user: req.user._id
         }).populate("property");
 
-        res.status(200).json(data)
+        res.status(200).json({success: true, data})
     } catch (error) {
 		res.status(500).json({
 			success: false,

@@ -92,8 +92,6 @@ const App = () => {
 			<ScrollToTopButton />
 
 			<Routes>
-				<Route path='/contact' element={<Contact />} />
-
 				<Route element={<PublicRoute />}>
 					<Route path='/register' element={<Register />} />
 					<Route path='/verify-email' element={<VerifyEmail />} />

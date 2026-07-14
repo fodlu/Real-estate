@@ -47,11 +47,13 @@ const PropertyDetail = () => {
 
 	useEffect(() => {
 		const fetchDetails = async () => {
+			const tokenAvail = token ? {Authorization : `Bearer ${token}`} : {}
 			try {
 				setLoading(true);
 				const res = await axios.get(`${API_URL}/api/property/${id}`, {
-					headers: token ? { Authorization: `Bearer ${token}` } : {},
+					headers: tokenAvail
 				});
+
 				setProperty(res.data.property);
 				setSimilarProperties(res.data.similarProperties || []);
 
@@ -553,15 +555,16 @@ const PropertyDetail = () => {
 						</Link>
 					</div>
 
-                    <div className={s.similarGrid}>
-                        {similarProperties.length > 0 ? (
-                            similarProperties.slice(0,3).map((p) => <PropertyCard key={p._id} property={p} />)
-                        ) : (
-                            <div className={s.similarEmptyState}>
-                                No similar properties found in this location
-                            </div>
-                        )}
-                    </div>
+					<div className={s.similarGrid}>
+						{similarProperties.length > 0 ?
+							similarProperties
+								.slice(0, 3)
+								.map((p) => <PropertyCard key={p._id} property={p} />)
+						:	<div className={s.similarEmptyState}>
+								No similar properties found in this location
+							</div>
+						}
+					</div>
 				</section>
 			</main>
 		</div>

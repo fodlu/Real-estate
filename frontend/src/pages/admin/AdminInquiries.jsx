@@ -26,7 +26,7 @@ const AdminInquiries = () => {
 				const res = await axios.get(`${API_URL}/api/admin/inquiries`, {
 					headers: { Authorization: `Bearer ${token}` },
 				});
-				console.log("inquiry response: ", res.data);
+				// console.log("inquiry response: ", res.data);
 				if (res.data.success) {
 					setInquiries(res.data.inquiries);
 				}

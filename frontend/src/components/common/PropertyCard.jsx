@@ -38,7 +38,7 @@ const PropertyCard = ({
 		}
 	};
 
-	const formattedPrice = new Intl.NumberFormat("en-NGA", {
+	const formattedPrice = new Intl.NumberFormat("en-NG", {
 		style: "currency",
 		currency: "NGA",
 		maximumFractionDigits: 0,
@@ -51,7 +51,7 @@ const PropertyCard = ({
 			<Link to={`/property/${property._id}`} className={s.link}>
 				<div className={s.imageSection}>
 					<img
-						src={property.image[0]}
+						src={property.images[0]}
 						alt={property.title}
 						className={s.image}
 					/>
@@ -88,11 +88,11 @@ const PropertyCard = ({
 				<div className={s.content}>
 					<div className='flex justify-between items-center'>
 						<span className={s.propertyType}>{property.propertyType}</span>
-						{property.views !== undefined} && (
+						{property.views !== undefined && (
 						<div className={s.views}>
 							<HiEye size={16} /> {property.views}
 						</div>
-						)
+						)}
 					</div>
 
 					<h4 className={s.title}>{property.title}</h4>

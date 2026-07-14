@@ -39,7 +39,6 @@ const Profile = () => {
 	};
 
 	const handleImageChange = (e) => {
-        console.log(e.target.files)
 		const file = e.target.files[0];
 		if (file) {
 			setImageFile(file);

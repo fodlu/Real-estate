@@ -43,8 +43,6 @@ const LandingPage = () => {
 	});
 	const [wishlistedIds, setWishlistedIds] = useState([]);
 
-	console.log(error, properties, wishlistedIds);
-
 	// to fetch wishlist
 	const fetchWishlist = async () => {
 		try {
@@ -145,8 +143,6 @@ const LandingPage = () => {
 			type: "commercial",
 		},
 	];
-
-	console.log(categories)
 
 	const features = [
 		{

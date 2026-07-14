@@ -14,7 +14,7 @@ export const addProperty = async (req, res) => {
 			}
 		}
 
-		const property = await Property.create({
+		const property = await PropertyModel.create({
 			title: req.body.title,
 			description: req.body.description,
 			price: Number(req.body.price),
@@ -77,7 +77,7 @@ export const getMyProperties = async (req, res) => {
 // update a property
 export const updateProperty = async (req, res) => {
 	try {
-		const property = await Property.findById(req.params.id);
+		const property = await PropertyModel.findById(req.params.id);
 		if (!property) {
 			return res.status(404).json({
 				success: false,
@@ -201,7 +201,7 @@ export const updatePropertyStatus = async (req, res) => {
 		if (!property) {
 			return res.json({
 				success: false,
-				message: "Propery not found",
+				message: "Property not found",
 			});
 		}
 
@@ -291,7 +291,7 @@ export const getAllProperties = async (req, res) => {
 		if (sort === "priceHigh") sortOption = { price: -1 };
 		if (sort === "latest") sortOption = { createdAt: -1 };
 
-		const properties = await Property.find(query)
+		const properties = await PropertyModel.find(query)
 			.populate("seller", "name phone profilePic")
 			.sort(sortOption);
 
@@ -319,7 +319,7 @@ export const getPropertyDetails = async (req, res) => {
 		if (!property) {
 			return res.json({
 				success: false,
-				message: "Propery not found",
+				message: "Property not found",
 			});
 		}
 

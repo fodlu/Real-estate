@@ -11,11 +11,13 @@ const AdminContacts = () => {
 	const { token } = useAuth();
 
 	// to fetch the contacts
-	const fetchContacts = async () => {
+	useEffect(() => {
+		const fetchContacts = async () => {
 		try {
 			const res = await axios.get(`${API_URL}/api/contact`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
+
 			if (res.data.success) {
 				setContacts(res.data.contacts);
 			}
@@ -25,8 +27,8 @@ const AdminContacts = () => {
 			setLoading(false);
 		}
 	};
-
-	useEffect(() => fetchContacts(), [token]);
+	fetchContacts()
+	}, [token]);
 
 	if (loading) {
 		return (
