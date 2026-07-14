@@ -203,7 +203,7 @@ const Profile = () => {
 									disabled={loading}
 									className={s.saveButton}>
 									<HiCheck size={20} />{" "}
-									{loading ? "Saving..." : "Save Changes"}{" "}
+									{loading ? "Saving..." : "Save Changes"}
 								</button>
 								<button
 									type='button'

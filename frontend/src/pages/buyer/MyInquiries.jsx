@@ -41,6 +41,7 @@ const MyInquiries = () => {
 				setLoading(false);
 			}
 		};
+		fetchInquiries()
 	}, [user, token]);
 
 	// to mark as read for the inquiry for seller
@@ -59,7 +60,7 @@ const MyInquiries = () => {
 				),
 			);
 		} catch (error) {
-			console.error("Failed to mark as read");
+			console.error("Failed to mark as read: ", error);
 		}
 	};
 
@@ -78,7 +79,7 @@ const MyInquiries = () => {
 			navigate("/chat-messages", { state: { chat: res.data } });
 		} catch (err) {
 			console.error("Error starting the chat: ", err);
-			alert("Failed to start chat. Please try again later.");
+			alert("Failed to start chat. Please try again.");
 		}
 	};
 

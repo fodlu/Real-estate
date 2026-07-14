@@ -4,13 +4,15 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI, {
-            // ✅ Extends the node discovery phase to give your hotspot 10s to sync
-            serverSelectionTimeoutMS: 10000,
-            // ✅ Prevents slow data packets from causing an abrupt crash
-            socketTimeoutMS: 45000,
+            // Keep these core parameters to support erratic mobile network latency spikes
+            serverSelectionTimeoutMS: 15000,
+            socketTimeoutMS: 60000,
+            maxPoolSize: 5,
+
         });
         console.log("🚀 [DATABASE] Connected successfully over your hotspot connection!");
     } catch (error) {
-        console.error("MongoDB Connection Fault Details:", error);
+        console.error("MongoDB Connection Fault Details:", error.message);
     }
 };
+

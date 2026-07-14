@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { chatMessagesStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import { useChat } from "../../context/ChatContext";
@@ -194,7 +194,7 @@ const ChatMessages = () => {
 			{user?.role !== "seller" && <Navbar />}
 
 			<div className={s.chatWrapper}>
-				<div className={`${s.sidebar} ${s.activeChat ? s.sidebarHidden : "s"}`}>
+				<div className={`${s.sidebar} ${s.activeChat ? s.sidebarHidden : ""}`}>
 					<div className={s.sidebarHeader}>
 						<h2 className={s.sidebarTitle}>Message</h2>
 					</div>
@@ -242,7 +242,6 @@ const ChatMessages = () => {
 				</div>
 
 				{/* main chat area */}
-
 				<div className={s.chatArea}>
 					{activeChat ?
 						<>

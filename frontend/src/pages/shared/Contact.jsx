@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { contactStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
@@ -6,7 +6,6 @@ import API_URL from "../../../config";
 import Navbar from "../../components/common/Navbar";
 import {
 	HiOutlineAnnotation,
-	HiOutlineCheck,
 	HiOutlineCheckCircle,
 	HiOutlineMail,
 	HiOutlinePhone,
@@ -42,7 +41,7 @@ const Contact = () => {
 				setFormData({ ...formData, message: "" });
 			}
 		} catch (err) {
-			setError(err.response?.data?.message || "failed to send message");
+			setError(err.response?.data?.message || "Failed to send message");
 		} finally {
 			setLoading(false);
 		}
