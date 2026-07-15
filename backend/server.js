@@ -63,7 +63,6 @@ const io = new Server(server, {
 	cors: {
 		origin: allowedOrigins,
 		methods: ["GET", "POST"],
-		credentials: true,
 	},
 });
 
@@ -73,7 +72,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("sendMessage", (data) => {
-		io.to(data.chatId.emit("sendMessage", data));
+		io.to(data.chatId.emit("receiveMessage", data));
 	});
 
 	socket.on("disconnected", () => {});

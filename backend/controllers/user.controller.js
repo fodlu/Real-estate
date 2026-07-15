@@ -42,40 +42,40 @@ export const getPublicProfile = async (req, res) => {
 };
 
 // update a profile
-export const updateProfile = async (req, res ) => {
-    try {
-        const {name, phone, address, removeProfilePic} = req.body;
-        const user = await UserModel.findById(req.user._id);
+export const updateProfile = async (req, res) => {
+	try {
+		const { name, phone, address, removeProfilePic } = req.body;
+		const user = await UserModel.findById(req.user._id);
 
-        if(!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-        }
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: "User not found",
+			});
+		}
 
-        // image handling
-		if(req.file) {
-			const result = await uploadToCloudinary(req.file.buffer, 'profiles');
+		// image handling
+		if (req.file) {
+			const result = await uploadToCloudinary(req.file.buffer, "profiles");
 			user.profilePic = result.secure_url;
-		} else if (removeProfilePic === true) {
+		} else if (removeProfilePic === "true") {
 			user.profilePic = null;
 		}
 
-		if(name !== undefined) user.name = name;
-		if(phone !== undefined) user.phone = phone
-		if(address !== undefined) user.address = address
+		if (name !== undefined) user.name = name;
+		if (phone !== undefined) user.phone = phone;
+		if (address !== undefined) user.address = address;
 
 		const updatedUser = await user.save();
 		res.json({
 			success: true,
 			message: "Profile updated",
-			user: updatedUser
-		})
-    } catch (error) {
+			user: updatedUser,
+		});
+	} catch (error) {
 		res.status(500).json({
 			success: false,
 			message: error.message,
 		});
 	}
-}
+};

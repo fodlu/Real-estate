@@ -50,7 +50,7 @@ const LandingPage = () => {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			setWishlistedIds(
-				res.data
+				res.data.data
 					.filter((item) => item.property)
 					.map((item) => String(item.property._id)),
 			);

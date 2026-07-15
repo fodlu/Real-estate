@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
 			(error) => {
 				if (
 					error.response &&
-					error.response.status(403) &&
+					error.response?.status ===403 &&
 					error.response.data.message.includes("blocked")
 				) {
 					logout();
@@ -112,7 +112,6 @@ export const AuthProvider = ({ children }) => {
 				return Promise.reject(error);
 			},
 		);
-
 		return () => axios.interceptors.response.eject(interceptor);
 	}, [token]);
 

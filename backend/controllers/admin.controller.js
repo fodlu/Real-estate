@@ -112,7 +112,7 @@ export const getDashboardStats = async (req, res) => {
 		const totalUsers = await UserModel.countDocuments();
 		const totalProperties = await PropertyModel.countDocuments();
 
-		const activeListing = await PropertyModel.countDocuments({
+		const activeListings = await PropertyModel.countDocuments({
 			status: "sale",
 		});
 
@@ -125,7 +125,7 @@ export const getDashboardStats = async (req, res) => {
 			stats: {
 				totalUsers,
 				totalProperties,
-				activeListing,
+				activeListings,
 				soldProperties,
 			},
 		});

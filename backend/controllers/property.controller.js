@@ -163,7 +163,7 @@ export const deleteProperty = async (req, res) => {
 		if (!property) {
 			return res.json({
 				success: false,
-				message: "Propery not found",
+				message: "Property not found",
 			});
 		}
 
@@ -178,7 +178,7 @@ export const deleteProperty = async (req, res) => {
 		// remove image from cloudinary
 		for (let imageUrl of property.images) {
 			const publicId = imageUrl.split("/").pop().split(".")[0];
-			await cloudinary.uploader.destroy("properties", publicId);
+			await cloudinary.uploader.destroy("properties/" + publicId);
 		}
 
 		await property.deleteOne();
@@ -201,7 +201,7 @@ export const updatePropertyStatus = async (req, res) => {
 		if (!property) {
 			return res.json({
 				success: false,
-				message: "Property not found",
+				message: "Propery not found",
 			});
 		}
 
@@ -325,7 +325,7 @@ export const getPropertyDetails = async (req, res) => {
 
 		// unique view tracking by id
 		let visitorId = req.ip;
-		const authHeader = req.authHeaders.authorization;
+		const authHeader = req.headers.authorization;
 		if (authHeader && authHeader.startsWith("Bearer ")) {
 			try {
 				const token = authHeader.split(" ")[1];
@@ -337,7 +337,7 @@ export const getPropertyDetails = async (req, res) => {
 		}
 
 		const isSellerChecking = visitorId === property.seller._id.toString();
-
+		// only increment the view if not the seller but if he edit, increment the view
 		if (!isSellerChecking && !property.viewedBy.includes(visitorId)) {
 			property.views += 1;
 			property.viewedBy.push(visitorId);

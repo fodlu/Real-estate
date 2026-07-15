@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import PropertyCard from "../../components/common/PropertyCard";
 
 const SellerDashboard = () => {
-	const { token, logout } = useAuth();
+	const { token } = useAuth();
 	const [stats, setStats] = useState({
 		totalProperties: 0,
 		activeListing: 0,

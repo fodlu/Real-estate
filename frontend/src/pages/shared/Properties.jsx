@@ -56,7 +56,7 @@ const Properties = () => {
 			});
 
 			setWishlistedIds(
-				res.data
+				res.data.data
 					.filter((item) => item.property)
 					.map((item) => String(item.property._id)),
 			);
@@ -104,6 +104,7 @@ const Properties = () => {
 			if (currentFilters.sort) params.append("sort", currentFilters.sort);
 
 			const res = await axios.get(
+				// `${API_URL}/api/property`,
 				`${API_URL}/api/property?${params.toString()}`,
 			);
 			setProperties(res.data.properties);
@@ -286,8 +287,8 @@ const Properties = () => {
 							<div className={s.filterSection}>
 								<label className={s.filterLabel}>Property Type</label>
 								<div className={s.checkboxGroup}>
-									{propertyTypes.map((type) => (
-										<label className={s.checkboxLabel} key={type.name}>
+									{propertyTypes.map((type, i) => (
+										<label className={s.checkboxLabel} key={i}>
 											<input
 												type='checkbox'
 												className={s.checkbox}
@@ -425,7 +426,7 @@ const Properties = () => {
 			</div>
 
 			{showMobileFilters && (
-				<div className={s.mobileOverlay} onClick={() => setShowMobileFilters(false)} s/>
+				<div className={s.mobileOverlay} onClick={() => setShowMobileFilters(false)}/>
 			)}
 		</div>
 	);

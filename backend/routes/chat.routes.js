@@ -2,7 +2,8 @@ import express from "express";
 import ChatModel from "../models/chat.model.js";
 import { protect } from "../middlewares/auth.middleware.js";
 
-const ChatRouter = express.Router()
+const
+ChatRouter = express.Router()
 ChatRouter.use(protect);
 
 // to create a chat

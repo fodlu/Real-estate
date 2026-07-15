@@ -26,7 +26,7 @@ const PropertyDetail = () => {
 	const { id } = useParams();
 	const { user, token } = useAuth();
 	const navigate = useNavigate();
-	const [property, setProperty] = useState(null);
+	const [property, setProperty] = useState([]);
 	const [similarProperties, setSimilarProperties] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -53,7 +53,6 @@ const PropertyDetail = () => {
 				const res = await axios.get(`${API_URL}/api/property/${id}`, {
 					headers: tokenAvail
 				});
-
 				setProperty(res.data.property);
 				setSimilarProperties(res.data.similarProperties || []);
 
@@ -61,7 +60,7 @@ const PropertyDetail = () => {
 					const wishRes = await axios.get(`${API_URL}/api/wishlist`, {
 						headers: { Authorization: `Bearer ${token}` },
 					});
-					const found = wishRes.data.some((item) => item.property?._id === id);
+					const found = wishRes.data.data.some((item) => item.property?._id === id);
 					setIsInWishlist(found);
 				}
 				setLoading(false);
@@ -150,7 +149,7 @@ const PropertyDetail = () => {
 				{
 					chatId: chat._id,
 					text: `(Context: Interested in property ${property.title})`,
-					image: property.images[0],
+					image: property?.images[0],
 				},
 				{
 					headers: { Authorization: `Bearer ${token}` },
@@ -226,7 +225,7 @@ const PropertyDetail = () => {
 							className={s.galleryMainItem(property.images.length > 1)}
 							onClick={() => openLightbox(0)}>
 							<img
-								src={property.image[0]}
+								src={property?.images[0]}
 								alt='property image'
 								className={s.galleryImage}
 							/>

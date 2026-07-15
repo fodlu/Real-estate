@@ -9,7 +9,7 @@ const sendEmail = async (options) => {
 		const data = {
 			sender: {
 				name: "Real Estate Platform",
-				email: "process.env.SENDER_EMAIL",
+				email: process.env.SENDER_EMAIL,
 			},
 			to: [{ email: options.email }],
 			subject: options.subject,

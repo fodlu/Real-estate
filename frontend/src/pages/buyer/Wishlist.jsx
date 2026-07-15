@@ -47,7 +47,6 @@ const Wishlist = () => {
 					setWishlists(res.data.data);
 					setError(null);
 					setLoading(false);
-					console.log(wishlists)
 				}
 			} catch {
 				setError("Failed to load wishlists.");

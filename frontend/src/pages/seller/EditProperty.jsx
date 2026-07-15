@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { editPropertyStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -49,7 +49,9 @@ const EditProperty = () => {
 	useEffect(() => {
 		const fetchProperty = async () => {
 			try {
-				const res = await axios.get(`${API_URL}/api/property/${id}`);
+				const res = await axios.get(`${API_URL}/api/property/${id}`, {
+					headers: {Authorization: `Bearer ${token}`}
+				});
 				const p = res.data.property;
 				setFormData({
 					title: p.title || "",
