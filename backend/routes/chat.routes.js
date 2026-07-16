@@ -2,14 +2,20 @@ import express from "express";
 import ChatModel from "../models/chat.model.js";
 import { protect } from "../middlewares/auth.middleware.js";
 
-const
-ChatRouter = express.Router()
+const ChatRouter = express.Router();
 ChatRouter.use(protect);
 
 // to create a chat
 ChatRouter.post("/start", async (req, res) => {
 	try {
 		const { propertyId, sellerId, buyerId: providedBuyerId } = req.body;
+
+		if (!req.user) {
+			return res.status(401).json({
+				message: "Unauthorized",
+			});
+		}
+
 		let buyerId, finalSellerId;
 		if (req.user.role === "seller") {
 			buyerId = providedBuyerId;
@@ -45,8 +51,9 @@ ChatRouter.post("/start", async (req, res) => {
 			.populate("seller", "name email profilePic")
 			.populate("property", "title price images");
 
-		res.json(chat);
+		return res.status(200).json(chat);
 	} catch (error) {
+		console.error("Backend chat start fault: ", error);
 		res.status(500).json({
 			message: "Error creating chat or getting previous ones",
 			error: error.message,
@@ -58,7 +65,7 @@ ChatRouter.post("/start", async (req, res) => {
 ChatRouter.post("/send", async (req, res) => {
 	try {
 		const { chatId, text, image } = req.body;
-		const userId = req.user.id;
+		const userId = req.user.id || req.user._id;
 
 		const chat = await ChatModel.findById(chatId);
 		if (!chat)
@@ -76,16 +83,16 @@ ChatRouter.post("/send", async (req, res) => {
 		const newMessage = {
 			sender: userId,
 			text,
-			image,
+			image: image || null,
 			createdAt: new Date(),
 		};
 		chat.messages.push(newMessage);
 		await chat.save();
 
-		const savedMessage = chat.messages[chat.message.length - 1];
-		res.json({ chat, newMessage: savedMessage });
+		const savedMessage = chat.messages[chat.messages.length - 1];
+		return res.status(200).json({ chat, newMessage: savedMessage });
 	} catch (error) {
-		res.status(500).json({
+		return res.status(500).json({
 			message: "Error sending the message",
 			error: error.message,
 		});
@@ -96,7 +103,7 @@ ChatRouter.post("/send", async (req, res) => {
 ChatRouter.get("/user", async (req, res) => {
 	try {
 		const userId = req.user._id;
-		const chat = await ChatModel.find({
+		const chats = await ChatModel.find({
 			$or: [{ buyer: userId }, { seller: userId }],
 		})
 			.populate("buyer", "name email profilePic")
@@ -104,9 +111,9 @@ ChatRouter.get("/user", async (req, res) => {
 			.populate("property", "title price images")
 			.sort({ updatedAt: -1 });
 
-		res.json(chats);
+		return res.json(chats);
 	} catch (error) {
-		res.status(500).json({
+		return res.status(500).json({
 			message: "Error fetching the user chats",
 			error: error.message,
 		});
@@ -116,23 +123,32 @@ ChatRouter.get("/user", async (req, res) => {
 // to get chat message
 ChatRouter.get("/:chatId", async (req, res) => {
 	try {
-		const chat = await ChatModel.findById(req.params.chatId).populate(
-			"messages.sender",
-			"name profilePic",
-		);
+		const chat = await ChatModel.findById(req.params.chatId).populate({
+			path: "messages.sender",
+			select: "name profilePic",
+		});
 
 		if (!chat) return res.status(404).json({ message: "Chat not found" });
 
-		const userId = req.user._id.toString();
-		if (chat.buyer.toString() !== userId && chat.seller.toString() !== userId) {
+		const userId = (req.user?._id || req.user?.id)?.toString();
+		if (!userId) {
+			return res
+				.status(401)
+				.json({ message: "Unauthorized user profile context context" });
+		}
+
+		const buyerId = chat.buyer?._id?.toString() || chat.buyer?.toString();
+		const sellerId = chat.seller?._id?.toString() || chat.seller?.toString();
+
+		if (buyerId !== userId && sellerId !== userId) {
 			return res.status(403).json({
 				message: "You are not authorized",
 			});
 		}
 
-		res.json(chat);
+		return res.status(200).json(chat);
 	} catch (error) {
-		res.status(500).json({
+		return res.status(500).json({
 			message: "Error fetching the chat messages",
 			error: error.message,
 		});
@@ -158,9 +174,9 @@ ChatRouter.delete("/:chatId", async (req, res) => {
 		}
 
 		await ChatModel.findByIdAndDelete(req.params.chatId);
-		res.json({ message: "Chat deleted successfully!" });
+		return res.json({ message: "Chat deleted successfully!" });
 	} catch (error) {
-		res.status(500).json({
+		return res.status(500).json({
 			message: "Error fetching the chat messages",
 			error: error.message,
 		});
@@ -196,4 +212,4 @@ ChatRouter.delete("/:chatId/message/:messageId", async (req, res) => {
 	}
 });
 
-export default ChatRouter
+export default ChatRouter;

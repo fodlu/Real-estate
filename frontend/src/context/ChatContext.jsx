@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { io } from "socket.io-client";
 import API_URL from "../../config";
@@ -50,27 +44,39 @@ export const ChatProvider = ({ children }) => {
 		}
 	};
 
-	const sendMessage = (
-		chatId,
-		text,
-		messageId = null,
-		createdAt = new Date(),
-		image = null,
-	) => {
-		if (socket && user) {
+	const leaveChat = (chatId) => {
+		if (socket) {
+			socket.emit("leave_room", chatId); // Emits a signal to your Express server
+		}
+	};
+
+	const sendMessage = (messagePayload) => {
+		if (!socket || !user) return null;
+
+		try {
 			const messageData = {
-				chatId,
-				sender: user._id,
-				text,
-				image,
-				createdAt,
-				_id: messageId,
+				chatId: messagePayload.chatId,
+				sender: messagePayload.sender || {
+					_id: user._id || user.id,
+					name: user.name,
+					profilePic: user.profilePic || "",
+				},
+				text: messagePayload.text,
+				image: messagePayload.image || "",
+				createdAt: messagePayload.createdAt || new Date(),
+				_id: messagePayload._id,
 			};
 
-			socket.omit("sendMessage", messageData);
+			socket.emit("sendMessage", messageData);
+
 			return messageData;
+		} catch (error) {
+			console.error(
+				"Failed to execute socket broadcast stream emission:",
+				error,
+			);
+			return null;
 		}
-		return null;
 	};
 
 	const value = {
@@ -81,7 +87,9 @@ export const ChatProvider = ({ children }) => {
 		sendMessage,
 		notifications,
 		setNotifications,
+		leaveChat,
 	};
+
 	return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };
 

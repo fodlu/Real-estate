@@ -72,10 +72,10 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("sendMessage", (data) => {
-		io.to(data.chatId.emit("receiveMessage", data));
+		io.to(data.chatId).emit("receiveMessage", data);
 	});
 
-	socket.on("disconnected", () => {});
+	socket.on("disconnect", () => {});
 });
 
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

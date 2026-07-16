@@ -47,11 +47,11 @@ const PropertyDetail = () => {
 
 	useEffect(() => {
 		const fetchDetails = async () => {
-			const tokenAvail = token ? {Authorization : `Bearer ${token}`} : {}
+			const tokenAvail = token ? { Authorization: `Bearer ${token}` } : {};
 			try {
 				setLoading(true);
 				const res = await axios.get(`${API_URL}/api/property/${id}`, {
-					headers: tokenAvail
+					headers: tokenAvail,
 				});
 				setProperty(res.data.property);
 				setSimilarProperties(res.data.similarProperties || []);
@@ -60,7 +60,9 @@ const PropertyDetail = () => {
 					const wishRes = await axios.get(`${API_URL}/api/wishlist`, {
 						headers: { Authorization: `Bearer ${token}` },
 					});
-					const found = wishRes.data.data.some((item) => item.property?._id === id);
+					const found = wishRes.data.data.some(
+						(item) => item.property?._id === id,
+					);
 					setIsInWishlist(found);
 				}
 				setLoading(false);
@@ -144,17 +146,26 @@ const PropertyDetail = () => {
 			);
 
 			const chat = res.data;
+
+			if (!chat || !chat._id) {
+				throw new Error("Failed to retrieve a valid Chat ID from the server.");
+			}
+
+			const contextImage =
+				chat.property?.images?.[0] || property?.images?.[0] || "";
+
 			await axios.post(
 				`${API_URL}/api/chat/send`,
 				{
 					chatId: chat._id,
 					text: `(Context: Interested in property ${property.title})`,
-					image: property.images[0],
+					image: contextImage,
 				},
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
+
 			navigate("/chat-messages", { state: { chat } });
 		} catch (error) {
 			console.error("Error starting the chat: ", error);

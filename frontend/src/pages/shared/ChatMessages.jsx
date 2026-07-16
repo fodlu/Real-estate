@@ -16,8 +16,14 @@ import {
 const ChatMessages = () => {
 	const { user, token } = useAuth();
 	const location = useLocation();
-	const { socket, setActiveChat, activeChat, joinChat, sendMessage } =
-		useChat();
+	const {
+		socket,
+		setActiveChat,
+		leaveChat,
+		activeChat,
+		joinChat,
+		sendMessage,
+	} = useChat();
 
 	const [conversation, setConversation] = useState([]);
 	const [messages, setMessages] = useState([]);
@@ -62,34 +68,60 @@ const ChatMessages = () => {
 
 	// to fetch messages
 	useEffect(() => {
+		if (!activeChat?._id) return;
+
+		let isMounted = true;
 		if (activeChat) {
 			const fetchMessages = async () => {
 				try {
 					const res = await axios.get(`${API_URL}/api/chat/${activeChat._id}`, {
 						headers: { Authorization: `Bearer ${token}` },
 					});
-					setMessages(res.data.messages || []);
-					joinChat(activeChat._id);
-					scrollToBottom();
+					if (isMounted) {
+						setMessages(res.data?.messages || []);
+						joinChat(activeChat._id);
+						setTimeout(() => {
+							scrollToBottom();
+						}, 50);
+					}
 				} catch (err) {
 					console.error("Error fetching message: ", err);
 				}
 			};
 			fetchMessages();
+
+			return () => {
+				isMounted = false;
+				if (typeof leaveChat === "function") {
+					leaveChat(activeChat._id); // Tells your socket server to detach from this specific room channel
+				}
+			};
 		}
 	}, [activeChat]);
 
 	// update the chat when the new message arrives
 	useEffect(() => {
-		if (socket) {
+		if (!socket) return;
+
+		{
 			socket.on("receiveMessage", (data) => {
-				if (activeChat && data.chatId === activeChat._id) {
-					setMessages((prev) => [...prev, data]);
+				if (activeChat?._id && data.chatId === activeChat._id) {
+					setMessages((prev) => {
+						const messageExists = prev.some((msg) => msg._id === data._id);
+						if (messageExists) return prev;
+						return [...prev, data];
+					});
+
+					setTimeout(() => {
+						if (typeof scrollToBottom === "function") {
+							scrollToBottom();
+						}
+					}, 50);
 				}
 			});
 		}
 		return () => socket?.off("receiveMessage");
-	}, [socket, activeChat]);
+	}, [socket, activeChat?._id]);
 
 	useEffect(() => {
 		scrollToBottom();
@@ -113,24 +145,37 @@ const ChatMessages = () => {
 
 		try {
 			const res = await axios.post(
-				`${API_URL}/api/chat`,
+				`${API_URL}/api/chat/send`,
 				{
 					chatId: activeChat._id,
 					text: textToSend,
+					image: "",
 				},
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
-			if (res.data.newMessage) {
-				sendMessage(
-					activeChat._id,
-					textToSend,
-					res.data.newMessage._id,
-					res.data.createdAt,
-				);
+
+			const serverMessage = res.data?.newMessage;
+
+			if (serverMessage && typeof sendMessage === "function") {
+				sendMessage({
+					chatId: activeChat._id,
+					_id: serverMessage._id,
+					sender: {
+						_id: user._id || user.id, // Current logged-in user profile ID reference
+						name: user.name,
+						profilePic: user.profilePic || "",
+					},
+					text: textToSend,
+					image: serverMessage.image || "",
+					createdAt: serverMessage.createdAt || new Date(),
+				});
 			}
-			scrollToBottom();
+
+			setTimeout(() => {
+				scrollToBottom();
+			}, 50);
 		} catch (err) {
 			console.error("Error sending message: ", err);
 		}
