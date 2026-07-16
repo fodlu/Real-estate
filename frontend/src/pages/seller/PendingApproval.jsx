@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import { HiOutlineClock, HiOutlineRefresh, HiOutlineSupport } from "react-icons/hi";
 
 const PendingApproval = () => {
-	const { logout, user, refreshUser } = useAuth();
+	const { user, refreshUser } = useAuth();
 	const [refreshing, setRefreshing] = useState(false);
 
 	// auto refresh
 	useEffect(() => {
-		const interval = setInterval(() => refreshUser(), [10000]);
-		return clearInterval(interval);
+		const interval = setInterval(() => refreshUser(), 10000);
+		return () => clearInterval(interval);
 	}, [refreshUser]);
 
 	// handle manual refresh

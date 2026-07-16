@@ -89,7 +89,7 @@ const Navbar = () => {
 			{user && user.role === "admin" && (
 				<>
 					<Link
-						to='/admin'
+						to='/admin-dashboard'
 						className={s.navLink}
 						onClick={() => setIsOpen(false)}>
 						Admin Panel

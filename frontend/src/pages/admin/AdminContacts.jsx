@@ -85,10 +85,7 @@ const AdminContacts = () => {
 
                                                 <div className={s.detailItem}>
                                                     <HiOutlineClock size={16} /> {" "}
-                                                    {new Date(contact.createdAt).toLocaleDateString([], {
-                                                        dateStyle: "medium",
-                                                        timeStyle: "short"
-                                                    })}
+                                                    {new Date(contact.createdAt).toLocaleDateString()}
                                                 </div>
 											</div>
 										</div>

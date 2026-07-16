@@ -149,13 +149,13 @@ const PropertyDetail = () => {
 				{
 					chatId: chat._id,
 					text: `(Context: Interested in property ${property.title})`,
-					image: property?.images[0],
+					image: property.images[0],
 				},
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
-			navigate("/chat-message", { state: { chat } });
+			navigate("/chat-messages", { state: { chat } });
 		} catch (error) {
 			console.error("Error starting the chat: ", error);
 			alert("Failed to start the chat");

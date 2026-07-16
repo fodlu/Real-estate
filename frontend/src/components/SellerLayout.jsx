@@ -23,13 +23,11 @@ const SellerLayout = () => {
             <div className={s.contentWrapper}>
                 <DashboardNavbar onMenuClick={() => setIsSidebarOpen(true)} />
                     <main className={s.main}>
-                        {/* {user?.isApproved || isPublicDashboardRoute ? (
+                        {user?.isApproved || isPublicDashboardRoute ? (
                             <Outlet />
                         ) : (
                             <PendingApproval />
-                        )} */}
-
-                        <Outlet />
+                        )}
                     </main>
             </div>
     </div>

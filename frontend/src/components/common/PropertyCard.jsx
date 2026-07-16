@@ -50,11 +50,11 @@ const PropertyCard = ({
 		<div className={s.card}>
 			<Link to={`/property/${property._id}`} className={s.link}>
 				<div className={s.imageSection}>
-					<img
-						src={property.images[0]}
+					{/* <img
+						src={property?.images[0]}
 						alt={property.title}
 						className={s.image}
-					/>
+					/> */}
 
 					{/* top badge section */}
 					<div className={s.topBadges}>

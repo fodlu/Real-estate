@@ -189,7 +189,7 @@ const EditProperty = () => {
 								<input
 									type='text'
 									name='title'
-									value={formData.value}
+									value={formData.title}
 									onChange={handleInputChange}
 									placeholder='e.g. Luxury 3BHK Apartment in downtown'
 									className={s.input}

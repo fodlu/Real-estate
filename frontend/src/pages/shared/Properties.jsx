@@ -89,32 +89,31 @@ const Properties = () => {
 	};
 
 	// to fetch the properties
-	const fetchProperties = async (currentFilters) => {
-		try {
-			setLoading(true);
-			const params = new URLSearchParams();
-			if (currentFilters.city) params.append("city", currentFilters.city);
-			if (currentFilters.propertyType.length > 0)
-				params.append("propertyType", currentFilters.propertyType.join(","));
-			if (currentFilters.bhk) params.append("bhk", currentFilters.bhk);
-			if (currentFilters.maxPrice)
-				params.append("maxPrice", currentFilters.maxPrice);
-			if (currentFilters.furnishing && currentFilters.furnishing.length > 0)
-				params.append("furnishing", currentFilters.furnishing.join(","));
-			if (currentFilters.sort) params.append("sort", currentFilters.sort);
+	  const fetchProperties = async (currentFilters) => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (currentFilters.city) params.append("city", currentFilters.city);
+      if (currentFilters.propertyType.length > 0)
+        params.append("propertyType", currentFilters.propertyType.join(","));
+      if (currentFilters.bhk) params.append("bhk", currentFilters.bhk);
+      if (currentFilters.maxPrice && Number(currentFilters.maxPrice) < 100000000) {
+        params.append("maxPrice", currentFilters.maxPrice);
+      }
+      if (currentFilters.furnishing && currentFilters.furnishing.length > 0)
+        params.append("furnishing", currentFilters.furnishing.join(","));
+	  params.append("sort", currentFilters.sort || "latest");
 
-			const res = await axios.get(
-				// `${API_URL}/api/property`,
-				`${API_URL}/api/property?${params.toString()}`,
-			);
-			setProperties(res.data.properties);
-			setError(null);
-		} catch {
-			setError("Failed to load properties. Please try again later.");
-		} finally {
-			setLoading(false);
-		}
-	};
+      const res = await axios.get(`${API_URL}/api/property?${params.toString()}`)
+
+      setProperties(res.data.properties);
+      setError(null);
+    } catch {
+      setError("Failed to load properties. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 	const fetchTimer = useRef(null);
 
