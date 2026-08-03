@@ -191,10 +191,10 @@ ChatRouter.delete("/:chatId/message/:messageId", async (req, res) => {
 
 		if (!chat) return res.status(404).json({ message: "Chat not found" });
 
-		const message = chat.messages.id(req.params.message);
+		const message = chat.messages.id(req.params.messageId);
 		if (!message) return res.status(404).json({ message: "Message not found" });
 
-		// only sender can delete his messaege
+		// only sender can delete their messaege
 		if (message.sender.toString() !== userId.toString()) {
 			return res.status(403).json({
 				message: "Not authorized to delete this message",

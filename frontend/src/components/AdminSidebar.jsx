@@ -32,7 +32,6 @@ const AdminSidebar = ({ isOpen, onClose }) => {
                         <NavLink key={item.name} to={item.path} onClick={onClose} className={({isActive}) => s.navLink(isActive)}>
                             <item.icon size={20} />
                             {item.name}
-                            {console.log(item)}
                         </NavLink>
                     ))}
                 </nav>

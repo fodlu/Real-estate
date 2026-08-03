@@ -47,12 +47,12 @@ const ChatMessages = () => {
 				setConversation(fetchedConversation);
 
 				if (location.state?.chat) {
-					const exisitingChat = fetchedConversation.find((c) => {
+					const existingChat = fetchedConversation.find((c) => {
 						c._id === location.state.chat._id;
 					});
 
-					if (exisitingChat) {
-						setActiveChat(exisitingChat);
+					if (existingChat) {
+						setActiveChat(existingChat);
 					} else {
 						setActiveChat(location.state.chat);
 					}

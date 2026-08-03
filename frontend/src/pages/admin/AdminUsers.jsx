@@ -1,4 +1,4 @@
-import React, {
+import {
 	useEffect,
 	useRef,
 	useState,
@@ -59,7 +59,7 @@ const AdminUsers = () => {
 	const handleBlock = async (id) => {
 		try {
 			const res = await axios.patch(
-				`${API_URL}/api/admin/users/${id}`,
+				`${API_URL}/api/admin/users/${id}/block`,
 				{},
 				{
 					headers: { Authorization: `Bearer ${token}` },

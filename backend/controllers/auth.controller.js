@@ -30,16 +30,16 @@ export const register = async (req, res) => {
 			verificationToken,
 		});
 
-		try {
-			await sendEmail({
-				email,
-				subject: "Verify Your Email - Real Estate Platform",
-				message: `<p>Your email verfifcation code is: <strong>${verificationToken}</strong></p><p>Please enter the verification code on the verification page to activate your account.</p>`,
-			});
-		} catch (emailError) {
-			console.error("Failed to send verfifcation email: ", emailError);
-			// we will still create the user in the db
-		}
+		// try {
+		// 	await sendEmail({
+		// 		email,
+		// 		subject: "Verify Your Email - Real Estate Platform",
+		// 		message: `<p>Your email verfifcation code is: <strong>${verificationToken}</strong></p><p>Please enter the verification code on the verification page to activate your account.</p>`,
+		// 	});
+		// } catch (emailError) {
+		// 	console.error("Failed to send verfifcation email: ", emailError);
+		// 	// we will still create the user in the db
+		// }
 
 		res.status(201).json({
 			message:
@@ -66,7 +66,7 @@ export const login = async (req, res) => {
 		const user = await UserModel.findOne({ email });
 		if (!user) {
 			res.status(400).json({
-				message: "InvalidEmail or password",
+				message: "Invalid Email or password",
 			});
 		}
 
@@ -129,7 +129,7 @@ export const getMe = async (req, res) => {
 export const verifyEmail = async (req, res) => {
 	try {
 		const { email, code } = req.body;
-		if (!email || !email) {
+		if (!email || !code) {
 			return res.status(400).json({
 				message: "Email and code are required.",
 			});
