@@ -2,12 +2,15 @@ import { useState } from "react";
 import { navbarStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { user, logout } = useAuth();
+	const [active, setActive] = useState(null)
+	const location = useLocation()
 
 	// to toggle the menu for mobile
 	const toggleMenu = () => setIsOpen(!isOpen);
@@ -19,38 +22,38 @@ const Navbar = () => {
 				<Link
 					to='/properties'
 					className={s.navLink}
-					onClick={() => setIsOpen(false)}>
+					onClick={() => {setIsOpen(false); console.log(location)}}>
 					Browse Properties
 				</Link>
 			)}
 
 			{user && user.role === "buyer" && (
 				<>
-					<Link to='/' className={s.navLink} onClick={() => setIsOpen(false)}>
+					<Link to='/' className={s.navLink} onClick={() => {setIsOpen(false); console.log(location)}}>
 						Home
 					</Link>
 					<Link
 						to='/properties'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Property
 					</Link>
 					<Link
 						to='/wishlist'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Wishlist
 					</Link>
 					<Link
 						to='/chat-messages'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Messages
 					</Link>
 					<Link
 						to='/contact'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Contact Us
 					</Link>
 				</>
@@ -61,13 +64,13 @@ const Navbar = () => {
 					<Link
 						to='/login'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Login
 					</Link>
 					<Link
 						to='/register'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Register
 					</Link>
 				</>
@@ -79,7 +82,7 @@ const Navbar = () => {
 					<Link
 						to='/dashboard'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Dashboard
 					</Link>
 				</>
@@ -91,7 +94,7 @@ const Navbar = () => {
 					<Link
 						to='/admin-dashboard'
 						className={s.navLink}
-						onClick={() => setIsOpen(false)}>
+						onClick={() => {setIsOpen(false); console.log(location)}}>
 						Admin Panel
 					</Link>
 				</>
@@ -142,15 +145,15 @@ const Navbar = () => {
 
 			<div
 				className={s.backdrop(isOpen)}
-				onClick={() => setIsOpen(false)}></div>
+				onClick={() => {setIsOpen(false); console.log(location)}}></div>
 
 			<div className={s.drawer(isOpen)}>
 				<div className={s.drawerHeader}>
-					<Logo onClick={() => setIsOpen(false)} />
+					<Logo onClick={() => {setIsOpen(false); console.log(location)}} />
 
 					<HiX
 						size={28}
-						onClick={() => setIsOpen(false)}
+						onClick={() => {setIsOpen(false); console.log(location)}}
 						className={s.drawerCloseIcon}
 					/>
 				</div>

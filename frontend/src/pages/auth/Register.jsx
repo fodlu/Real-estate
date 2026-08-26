@@ -11,7 +11,7 @@ const Register = () => {
 		name: "",
 		email: "",
 		password: "",
-		role: "buyer",
+		role: 'buyer',
 	});
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");

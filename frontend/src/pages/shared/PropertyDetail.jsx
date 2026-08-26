@@ -412,6 +412,8 @@ const PropertyDetail = () => {
 								{property.status?.toLowerCase === "rent" ?
 									"Rental Details"
 								:	"Listing Price"}
+
+								{console.log(property)}
 							</div>
 
 							<div className={s.priceCardValue}>
@@ -553,7 +555,7 @@ const PropertyDetail = () => {
 				<section className={s.similarSection}>
 					<div className={s.similarHeader}>
 						<div>
-							<h2 className={s.similarTitle}>Similsr Properties</h2>
+							<h2 className={s.similarTitle}>Similar Properties</h2>
 							<p className={s.similarSubtitle}>
 								Listing your might like property in {property.city}
 							</p>

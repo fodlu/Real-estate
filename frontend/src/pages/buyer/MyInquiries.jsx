@@ -30,7 +30,7 @@ const MyInquiries = () => {
 			if (!user) return;
 			try {
 				const endpoint = user?.role === "seller" ? "seller" : "my";
-				const res = await axios.get(`${API_URL}/api/inquiries/${endpoint}`, {
+				const res = await axios.get(`${API_URL}/api/inquiry/${endpoint}`, {
 					headers: { Authorization: `Bearer ${token}` },
 				});
 				setInquiries(res.data.inquiries || []);

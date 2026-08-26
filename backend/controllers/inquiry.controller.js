@@ -15,12 +15,13 @@ export const sendInquiry = async (req, res) => {
 			});
 		}
 
-		const inquiry = InquiryModel.create({
+		const inquiry = await InquiryModel.create({
 			property: property._id,
 			buyer: req.user._id,
 			seller: property.seller._id,
 			message,
 		});
+
 		res.status(201).json({
 			success: true,
 			message: "Inquiry sent successfully",
@@ -44,7 +45,9 @@ export const getSellerInquiries = async (req, res) => {
 			.populate("property", "title price images city")
 			.sort({ createdAt: -1 });
 
-		res.json({
+			console.log(inquiries)
+
+		return res.json({
 			success: true,
 			count: inquiries.length,
 			inquiries,

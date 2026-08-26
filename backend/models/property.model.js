@@ -79,7 +79,7 @@ const propertySchema = new mongoose.Schema({
 		default: 0,
 	},
 	viewedBy: [{ type: String }],
-});
+}, {timestamps: true});
 
 const PropertyModel = mongoose.model("Property", propertySchema);
 

@@ -20,9 +20,8 @@ const Wishlist = () => {
 			alert("Invalid Property ID");
 			return;
 		}
-
 		try {
-			await axios.delete(`${API_URL}/api/wishlist`, {
+			await axios.delete(`${API_URL}/api/wishlist/${propertyId}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			setWishlists((prev) =>

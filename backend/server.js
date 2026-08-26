@@ -20,7 +20,7 @@ import adminRouter from "./routes/admin.routes.js";
 import ChatRouter from "./routes/chat.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // DB
 connectDB();

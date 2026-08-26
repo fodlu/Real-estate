@@ -53,7 +53,7 @@ export const getWishList = async (req, res) => {
 // to remove a property from wishlist
 export const removeWishlist = async (req, res) => {
     try {
-        const propertyId = req.params.id;
+        const propertyId = req.params.propertyId;
         const result = await WishlistModel.findOneAndDelete({
             user: req.user._id,
 			property: propertyId,
