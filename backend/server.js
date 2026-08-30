@@ -27,7 +27,7 @@ connectDB();
 
 // middlewares
 // to make the server only connect to this port address only
-const allowedOrigins = ["http://localhost:5173"].filter(Boolean);
+const allowedOrigins = ["http://localhost:5173", "https://real-estate-opal-two.vercel.app"].filter(Boolean);
 app.use(
 	cors({
 		origin: function (origin, callback) {
