@@ -30,16 +30,16 @@ export const register = async (req, res) => {
 			verificationToken,
 		});
 
-		// try {
-		// 	await sendEmail({
-		// 		email,
-		// 		subject: "Verify Your Email - Real Estate Platform",
-		// 		message: `<p>Your email verfifcation code is: <strong>${verificationToken}</strong></p><p>Please enter the verification code on the verification page to activate your account.</p>`,
-		// 	});
-		// } catch (emailError) {
-		// 	console.error("Failed to send verfifcation email: ", emailError);
-		// 	// we will still create the user in the db
-		// }
+		try {
+			await sendEmail({
+				email,
+				subject: "Verify Your Email - Real Estate Platform",
+				message: `<p>Your email verfifcation code is: <strong>${verificationToken}</strong></p><p>Please enter the verification code on the verification page to activate your account.</p>`,
+			});
+		} catch (emailError) {
+			console.error("Failed to send verfifcation email: ", emailError);
+			// we will still create the user in the db
+		}
 
 		res.status(201).json({
 			message:
