@@ -48,7 +48,7 @@ const ChatMessages = () => {
 
 				if (location.state?.chat) {
 					const existingChat = fetchedConversation.find((c) => {
-						c._id === location.state.chat._id;
+						return c._id === location.state.chat._id;
 					});
 
 					if (existingChat) {
@@ -239,7 +239,7 @@ const ChatMessages = () => {
 			{user?.role !== "seller" && <Navbar />}
 
 			<div className={s.chatWrapper}>
-				<div className={`${s.sidebar} ${s.activeChat ? s.sidebarHidden : ""}`}>
+				<div className={`${s.sidebar} ${activeChat ? s.sidebarHidden : ""}`}>
 					<div className={s.sidebarHeader}>
 						<h2 className={s.sidebarTitle}>Message</h2>
 					</div>
